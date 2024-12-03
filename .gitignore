@@ -45,7 +45,8 @@ tmp/
 # dotenv environment variables file
 .env
 
+# Ignore TypeScript build info file
+*.tsbuildinfo
 
-# vuepress v2.x temp and cache directory
-.temp
-.cache
+# Ignore Angular cache directory
+.angular/cache/
