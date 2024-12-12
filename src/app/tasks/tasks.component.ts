@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { type NewTaskData } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -15,12 +16,24 @@ export class TasksComponent {
   @Input({ required: true }) name!: string;
   isAddingTask = false;
 
+  // DEPENDENCY INJECTION --> You tell angular which type of value you need
+  // and angular creates it and provides it as an argument
+  //------------------------------------------------------------------------------
+
+  // 1 way
+  // private tasksService: TasksService;
+  // constructor(tasksService: TasksService) {
+  //   this.tasksService = tasksService;
+  // }
+
+  // shortcut - create and initiliaze property together
+  constructor(private tasksService: TasksService) {}
+
   get selectedUserTasks() {
-    return 
+    return this.tasksService.getUserTasks(this.userId);
   }
 
-  onCompleteTask(id: string) {
-  }
+  onCompleteTask(id: string) {}
 
   onStartAddTask() {
     this.isAddingTask = true;
@@ -31,7 +44,6 @@ export class TasksComponent {
   }
 
   onAddTask(taskData: NewTaskData) {
-   
     this.isAddingTask = false;
   }
 }
